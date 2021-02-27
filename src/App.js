@@ -2,7 +2,9 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import ChatItem from './components/ChatItem';
+import ChatItem from "./components/ChatItem/ChatItem";
+import ChatIntro from "./components/ChatIntro/ChatIntro";
+import ChatWindow from "./components/ChatWindow/ChatWindow";
 
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -11,9 +13,30 @@ import SearchIcon from "@material-ui/icons/Search";
 
 export default () => {
   const [chatList, setChatList] = useState([
-    {}, {}, {}, {}, {}, {}, {}, {}, {}, {}
+    {
+      chatId: 1,
+      title: "Contato",
+      image: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 2,
+      title: "Contato",
+      image: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 3,
+      title: "Contato",
+      image: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 4,
+      title: "Contato",
+      image: "https://www.w3schools.com/howto/img_avatar.png",
+    },
   ]);
-  
+
+  const [activeChat, setActiveChat] = useState({});
+
   return (
     <div className="app-window">
       <div className="sidebar">
@@ -48,14 +71,18 @@ export default () => {
 
         <div className="chat-list">
           {chatList.map((item, key) => (
-            <ChatItem 
+            <ChatItem
               key={key}
               number={key + 1}
+              onClick={() => setActiveChat(chatList[key])}
             />
           ))}
         </div>
       </div>
-      <div className="content-area">...</div>
+      <div className="content-area">
+        {activeChat.chatId && <ChatWindow />}
+        {!activeChat.chatId && <ChatIntro />}
+      </div>
     </div>
   );
 };
