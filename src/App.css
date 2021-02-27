@@ -82,6 +82,18 @@ header {
   flex: 1;
   background-color:white;
   overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+
+.chat-list::-webkit-scrollbar {
+  width: 6px;
+  min-height: 6px;
+}
+
+.chat-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
 .content-area {
