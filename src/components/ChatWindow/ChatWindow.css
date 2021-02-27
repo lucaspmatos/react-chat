@@ -48,3 +48,46 @@
   align-items: center;
   cursor: pointer;
 }
+
+.chatWindow--body {
+  flex: 1;
+  overflow-y: auto;
+  background-color: #e5ddd5;
+  background-size: cover;
+  background-position: center;
+  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+}
+
+.chatWindow--footer {
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+}
+
+.chatWindow--footerLeft {
+  display: flex;
+  margin: 0 15px;
+}
+
+.chatWindow--footerInput {
+  flex: 1;
+}
+
+.chatWindow--footerInput input {
+  width: 100%;
+  min-height: 40px;
+  border: 0;
+  outline: 0;
+  background-color: white;
+  border-radius: 25px;
+  font-size: 15px;
+  color: #4a4a4a;
+  padding-left: 15px;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.chatWindow--footerRight {
+  display: flex;
+  margin: 0 15px;
+}

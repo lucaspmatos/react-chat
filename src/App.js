@@ -33,6 +33,46 @@ export default () => {
       title: "Contato 4",
       avatar: "https://www.w3schools.com/howto/img_avatar.png",
     },
+    {
+      chatId: 5,
+      title: "Contato 5",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 6,
+      title: "Contato 6",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 7,
+      title: "Contato 7",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 8,
+      title: "Contato 8",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 9,
+      title: "Contato 9",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 10,
+      title: "Contato 10",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 11,
+      title: "Contato 11",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
+    {
+      chatId: 12,
+      title: "Contato 12",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    },
   ]);
 
   const [activeChat, setActiveChat] = useState({});
@@ -82,7 +122,7 @@ export default () => {
         </div>
       </div>
       <div className="content-area">
-        {activeChat.chatId && <ChatWindow />}
+        {activeChat.chatId && <ChatWindow number={activeChat.chatId}/>}
         {!activeChat.chatId && <ChatIntro />}
       </div>
     </div>
