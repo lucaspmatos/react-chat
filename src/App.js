@@ -15,23 +15,23 @@ export default () => {
   const [chatList, setChatList] = useState([
     {
       chatId: 1,
-      title: "Contato",
-      image: "https://www.w3schools.com/howto/img_avatar.png",
+      title: "Contato 1",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
     },
     {
       chatId: 2,
-      title: "Contato",
-      image: "https://www.w3schools.com/howto/img_avatar.png",
+      title: "Contato 2",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
     },
     {
       chatId: 3,
-      title: "Contato",
-      image: "https://www.w3schools.com/howto/img_avatar.png",
+      title: "Contato 3",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
     },
     {
       chatId: 4,
-      title: "Contato",
-      image: "https://www.w3schools.com/howto/img_avatar.png",
+      title: "Contato 4",
+      avatar: "https://www.w3schools.com/howto/img_avatar.png",
     },
   ]);
 
@@ -74,6 +74,8 @@ export default () => {
             <ChatItem
               key={key}
               number={key + 1}
+              data={item}
+              active={activeChat.chatId === chatList[key].chatId}
               onClick={() => setActiveChat(chatList[key])}
             />
           ))}
