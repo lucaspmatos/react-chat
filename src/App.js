@@ -48,7 +48,7 @@ export default () => {
           {chatList.map((item, key) => (
             <ChatItem 
               key={key}
-              
+              number={key + 1}
             />
           ))}
         </div>
