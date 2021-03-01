@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import "./ChatWindow.css";
 
@@ -12,7 +12,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import SendIcon from "@material-ui/icons/Send";
 import MicIcon from "@material-ui/icons/Mic";
 
-export default function ChatWindow(props) {
+export default function ChatWindow({ number, user }) {
+  const body = useRef();
+
   let recognition = null;
   let SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -24,7 +26,18 @@ export default function ChatWindow(props) {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [text, setText] = useState("");
   const [listening, setListening] = useState(false);
-  const [list, setList] = useState([{}, {}, {}]);
+  const [list, setList] = useState([
+    { author: 123, body: "Hahaha!" },
+    { author: 123, body: "E aí, tudo bem?" },
+    { author: 456, body: "Quando vem aqui?" },
+  ]);
+
+  useEffect(() => {
+    if (body.current.scrollHeight > body.current.offsetHeight) {
+      body.current.scrollTop =
+        body.current.scrollHeight - body.current.offsetHeight;
+    }
+  }, [list]);
 
   const handleEmojiClick = (e, emojiObject) => {
     setText(text + emojiObject.emoji);
@@ -67,7 +80,7 @@ export default function ChatWindow(props) {
             alt=""
             className="chatWindow--avatar"
           />
-          <div className="chatWindow--name">Contato {props.number}</div>
+          <div className="chatWindow--name">Contato {number}</div>
         </div>
         <div className="chatWindow--headerButtons">
           <div className="chatWindow--btn">
@@ -82,9 +95,9 @@ export default function ChatWindow(props) {
         </div>
       </div>
 
-      <div className="chatWindow--body">
+      <div ref={body} className="chatWindow--body">
         {list.map((item, key) => (
-          <MessageItem key={key} data={item} />
+          <MessageItem key={key} data={item} user={user} />
         ))}
       </div>
 
