@@ -61,7 +61,7 @@
   display: flex;
 }
 
-.chatItem--lastMsg p {
+.chatItem--lastMsg p, .chatItem--name {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
