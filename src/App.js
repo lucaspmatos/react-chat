@@ -5,6 +5,7 @@ import "./App.css";
 import ChatItem from "./components/ChatItem/ChatItem";
 import ChatIntro from "./components/ChatIntro/ChatIntro";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
+import NewChat from "./components/NewChat/NewChat";
 
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -78,24 +79,32 @@ export default () => {
   const [activeChat, setActiveChat] = useState({});
   const [user, setUser] = useState({
     id: 456,
-    avatar: 'https://www.w3schools.com/howto/img_avatar.png',
-    name: 'Lucas Matos'
+    avatar: "https://www.w3schools.com/howto/img_avatar.png",
+    name: "Lucas Matos",
   });
+
+  const [showNewChat, setShowNewChat] = useState(false);
+
+  const handleNewChat = () => {
+    setShowNewChat(true);
+  };
 
   return (
     <div className="app-window">
       <div className="sidebar">
+        <NewChat
+          chatList={chatList}
+          user={user}
+          show={showNewChat}
+          setShow={setShowNewChat}
+        />
         <header>
-          <img
-            className="header--avatar"
-            src={user.avatar}
-            alt=""
-          />
+          <img className="header--avatar" src={user.avatar} alt="" />
           <div className="header--buttons">
             <div className="header--btn">
               <DonutLargeIcon style={{ color: "#919191" }} />
             </div>
-            <div className="header--btn">
+            <div onClick={handleNewChat} className="header--btn">
               <ChatIcon style={{ color: "#919191" }} />
             </div>
             <div className="header--btn">
@@ -127,7 +136,9 @@ export default () => {
         </div>
       </div>
       <div className="content-area">
-        {activeChat.chatId && <ChatWindow user={user} number={activeChat.chatId}/>}
+        {activeChat.chatId && (
+          <ChatWindow user={user} number={activeChat.chatId} />
+        )}
         {!activeChat.chatId && <ChatIntro />}
       </div>
     </div>
