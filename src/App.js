@@ -6,6 +6,7 @@ import ChatItem from "./components/ChatItem/ChatItem";
 import ChatIntro from "./components/ChatIntro/ChatIntro";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
 import NewChat from "./components/NewChat/NewChat";
+import Login from './components/Login/Login';
 
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -77,17 +78,27 @@ export default () => {
   ]);
 
   const [activeChat, setActiveChat] = useState({});
-  const [user, setUser] = useState({
-    id: 456,
-    avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    name: "Lucas Matos",
-  });
+  const [user, setUser] = useState(null);
 
   const [showNewChat, setShowNewChat] = useState(false);
 
   const handleNewChat = () => {
     setShowNewChat(true);
   };
+
+  const handleLoginData = async (userInfo) => {
+    let newUser = {
+      id: userInfo.uid,
+      name: userInfo.displayName,
+      avatar: userInfo.photoURL,
+    };
+    //
+    setUser(newUser);
+  }
+
+  if (user === null) {
+    return (<Login onReceive={handleLoginData} />);
+  }
 
   return (
     <div className="app-window">
