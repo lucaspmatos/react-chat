@@ -21,6 +21,12 @@ export default function NewChat({ user, chatList, show, setShow }) {
     }
   }, [user]);
 
+  const addNewChat = async (secondUser) => {
+    await Api.addNewChat(user, secondUser);
+
+    handleBackButton();
+  };
+
   const handleBackButton = () => {
     setShow(false);
   };
@@ -35,7 +41,11 @@ export default function NewChat({ user, chatList, show, setShow }) {
       </div>
       <div className="newChat--list">
         {contactList.map((item, key) => (
-          <div className="newChat--item" key={key}>
+          <div
+            onClick={() => addNewChat(item)}
+            className="newChat--item"
+            key={key}
+          >
             <img src={item.avatar} alt="" className="newChat--itemAvatar" />
             <div className="newChat--itemName">{item.name}</div>
           </div>

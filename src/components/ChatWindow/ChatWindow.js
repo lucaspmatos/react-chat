@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import EmojiPicker from "emoji-picker-react";
 import "./ChatWindow.css";
 
+import Api from "../../Api";
+
 import MessageItem from "../MessageItem/MessageItem";
 
 import SearchIcon from "@material-ui/icons/Search";
@@ -12,7 +14,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import SendIcon from "@material-ui/icons/Send";
 import MicIcon from "@material-ui/icons/Mic";
 
-export default function ChatWindow({ number, user }) {
+export default function ChatWindow({ user, data }) {
   const body = useRef();
 
   let recognition = null;
@@ -26,11 +28,15 @@ export default function ChatWindow({ number, user }) {
   const [openEmoji, setOpenEmoji] = useState(false);
   const [text, setText] = useState("");
   const [listening, setListening] = useState(false);
-  const [list, setList] = useState([
-    { author: 123, body: "Hahaha!" },
-    { author: 123, body: "E aí, tudo bem?" },
-    { author: 456, body: "Quando vem aqui?" },
-  ]);
+  const [list, setList] = useState([]);
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    setList([]);
+
+    let unsub = Api.onChatContent(data.chatId, setList, setUsers);
+    return unsub;
+  }, [data.chatId]);
 
   useEffect(() => {
     if (body.current.scrollHeight > body.current.offsetHeight) {
@@ -69,18 +75,26 @@ export default function ChatWindow({ number, user }) {
     }
   };
 
-  const handleSendClick = () => {};
+  const handleInputKeyUp = (event) => {
+    if (event.keyCode == 13) { 
+      handleSendClick(); 
+    }
+  }
+
+  const handleSendClick = () => {
+    if (text !== '') {
+      Api.sendMessage(data, user.id, 'text', text, users);
+      setText('');
+      setOpenEmoji(false);
+    }
+  };
 
   return (
     <div className="chatWindow">
       <div className="chatWindow--header">
         <div className="chatWindow--headerInfo">
-          <img
-            src="https://www.w3schools.com/howto/img_avatar.png"
-            alt=""
-            className="chatWindow--avatar"
-          />
-          <div className="chatWindow--name">Contato {number}</div>
+          <img src={data.image} alt="" className="chatWindow--avatar" />
+          <div className="chatWindow--name">{data.title}</div>
         </div>
         <div className="chatWindow--headerButtons">
           <div className="chatWindow--btn">
@@ -133,6 +147,7 @@ export default function ChatWindow({ number, user }) {
             placeholder="Digite uma mensagem"
             value={text}
             onChange={(e) => setText(e.target.value)}
+            onKeyUp={handleInputKeyUp}
           />
         </div>
         <div className="chatWindow--footerRight">
