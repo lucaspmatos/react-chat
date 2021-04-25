@@ -2,11 +2,13 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
+import Api from "./Api";
+
 import ChatItem from "./components/ChatItem/ChatItem";
 import ChatIntro from "./components/ChatIntro/ChatIntro";
 import ChatWindow from "./components/ChatWindow/ChatWindow";
 import NewChat from "./components/NewChat/NewChat";
-import Login from './components/Login/Login';
+import Login from "./components/Login/Login";
 
 import DonutLargeIcon from "@material-ui/icons/DonutLarge";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -14,71 +16,13 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default () => {
-  const [chatList, setChatList] = useState([
-    {
-      chatId: 1,
-      title: "Contato 1",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 2,
-      title: "Contato 2",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 3,
-      title: "Contato 3",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 4,
-      title: "Contato 4",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 5,
-      title: "Contato 5",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 6,
-      title: "Contato 6",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 7,
-      title: "Contato 7",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 8,
-      title: "Contato 8",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 9,
-      title: "Contato 9",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 10,
-      title: "Contato 10",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 11,
-      title: "Contato 11",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-    {
-      chatId: 12,
-      title: "Contato 12",
-      avatar: "https://www.w3schools.com/howto/img_avatar.png",
-    },
-  ]);
-
+  const [chatList, setChatList] = useState([]);
   const [activeChat, setActiveChat] = useState({});
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    id: "GUh00B02xdRWX1KtjSPJd1tD5lq2",
+    name: "Joaquim Matos",
+    avatar: "https://graph.facebook.com/471912207317112/picture",
+  });
 
   const [showNewChat, setShowNewChat] = useState(false);
 
@@ -92,12 +36,13 @@ export default () => {
       name: userInfo.displayName,
       avatar: userInfo.photoURL,
     };
-    //
+
+    await Api.addUser(newUser);
     setUser(newUser);
-  }
+  };
 
   if (user === null) {
-    return (<Login onReceive={handleLoginData} />);
+    return <Login onReceive={handleLoginData} />;
   }
 
   return (

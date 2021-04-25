@@ -11,7 +11,7 @@ export default function Login({ onReceive }) {
     if (result) {
       onReceive(result.user);
     } else {
-      alert("Erro!");
+      alert("Erro: não foi possível logar com sua conta no Facebook!");
     }
   };
 
