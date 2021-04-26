@@ -4,6 +4,8 @@ import "./ChatItem.css";
 export default function ChatItem({ active, data, onClick }) {
   const [time, setTime] = useState("");
 
+  console.log(data);
+
   useEffect(() => {
     if (data.last_message_date > 0) {
       let date = new Date(data.last_message_date.seconds * 1000);
@@ -18,7 +20,7 @@ export default function ChatItem({ active, data, onClick }) {
 
   return (
     <div className={`chatItem ${active ? "active" : ""}`} onClick={onClick}>
-      <img className="chatItem--avatar" src={data.avatar} alt="" />
+      <img className="chatItem--avatar" src={data.image} alt="" />
       <div className="chatItem--lines">
         <div className="chatItem--line">
           <div className="chatItem--name">{data.title}</div>

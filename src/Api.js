@@ -77,6 +77,24 @@ export default {
           let data = doc.data();
 
           if (data.chats) {
+            let chats = [...data.chats];
+
+            chats.sort((a, b) => {
+              if (a.last_message_date === undefined) {
+                return -1;
+              }
+
+              if (b.last_message_date === undefined) {
+                return -1;
+              }
+
+              if (a.last_message_date.seconds < b.last_message_date.seconds) {
+                return 1;
+              } else {
+                return -1;
+              }
+            });
+
             setChatList(data.chats);
           }
         }
